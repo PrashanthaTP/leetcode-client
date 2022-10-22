@@ -1,3 +1,4 @@
+import config from "./config"
 const baseurl = "https://leetcode.com";
 
 const urls = new Map();
@@ -9,10 +10,10 @@ const request1 = async (options) => {
         followRedirect: false,
         headers: {
             Cookie: options.setCookie
-                ? `LEETCODE_SESSION=${process.env.LEETCODE_SESSION};csrftoken=${process.env.CSRFTOKEN}`
+                ? `LEETCODE_SESSION=${config.LEETCODE_SESSION};csrftoken=${config.CSRFTOKEN}`
                 : "",
             "X-Requested-With": "XMLHttpRequest",
-            "X-CSRFToken": options.setCookie ? process.env.CSRFTOKEN : "",
+            "X-CSRFToken": options.setCookie ? config.CSRFTOKEN : "",
             Referer: options.referer || "",
         },
         resolveWithFullResponse: options.resolveWithFullResponse || false,
