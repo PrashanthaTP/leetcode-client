@@ -76,8 +76,8 @@ export const getExampleQuestionQuery = {
 };
 
 export const getDailyChallengeQuery = {
-    operationName: "questionOfToday",
-    query: `query questionOfToday {
+	operationName: "questionOfToday",
+	query: `query questionOfToday {
         activeDailyCodingChallengeQuestion {
 			date
 			userStatus
@@ -95,6 +95,12 @@ export const getDailyChallengeQuery = {
 					titleSlug
 					hasVideoSolution
 					hasSolution
+					codeSnippets {
+					lang
+					langSlug
+					code
+					__typename
+					}
 					topicTags {
 							name
 							id
@@ -103,40 +109,9 @@ export const getDailyChallengeQuery = {
 			}
 	}
 }`,
-};
-export const getQuestionOfTodayQuery = {
-    query: `
-query questionOfToday {
-  activeDailyCodingChallengeQuestion {
-    date
-    userStatus
-    link
-    question {
-      acRate
-      difficulty
-      freqBar
-      frontendQuestionId: questionFrontendId
-      isFavor
-      paidOnly: isPaidOnly
-      status
-      title
-	  content
-      titleSlug
-      hasVideoSolution
-      hasSolution
-      topicTags {
-        name
-        id
-        slug
-      }
-    }
-  }
-}`,
-    variables: {},
-};
+}
 
 export default {
     getExampleQuestionQuery,
     getDailyChallengeQuery,
-    getQuestionOfTodayQuery,
 };
