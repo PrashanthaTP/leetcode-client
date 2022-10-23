@@ -1,28 +1,34 @@
 import axios from "axios";
+import { assert } from "console";
 
 import config from "../config/config";
+import { fetchQuery } from "../lib/requests";
 import queries from "../queries/queries";
-
-const testPostReq = async () => {
-    const data = await axios({
-        url: "http://localhost:8000/api/v1/query",
-        method: "POST",
-        data: {
-            LEETCODE_SESSION: config.env.LEETCODE_SESSION,
-            CSRFTOKEN: config.env.CSRFTOKEN,
-            queryData: queries.getDailyChallengeQuery,
-        },
-    });
-    return data.data.data;
-};
 
 const test = () => {
     console.log(
-        testPostReq().then((res) =>
+        fetchQuery(queries.getDailyChallengeQuery).then((res) =>
             // console.log(res.data.data.activeDailyCodingChallengeQuestion.question)
             console.log(res.data)
         )
     );
 };
-
-test()
+const testBind = async () => {
+    const getDailyChallenge = fetchQuery.bind(
+        this,
+        queries.getDailyChallengeQuery
+    );
+    let data = null;
+    await getDailyChallenge()
+        .then((res) => (data=res))
+        .catch((err) => (data = null));
+    return data
+};
+const main = async () => {
+    test();
+    let res = await testBind();
+    if ( res!==null ) {
+        console.log("✅ bind function working!!!")
+    }
+};
+main();
