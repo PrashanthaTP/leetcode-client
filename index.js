@@ -1,5 +1,5 @@
 import axios from "axios";
-import config from "./config";
+import config from "./config/config";
 
 const body2 = `{"operationName":"getContestRankingData","variables":{"username":"aditi"},"query":"query getContestRankingData($username: String!) {\
                 userContestRanking(username: aditi) {\
